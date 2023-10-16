@@ -6,19 +6,16 @@ const app = express()
 app.use(cors())
 app.use(express.static('dist'))
 
-
-if (process.argv.length<3) {
-  console.log('give password as argument')
-  process.exit(1)
-}
-
-const password = process.argv[2]
-
-const url =
-  'mongodb+srv://mohaak:' + password + '@cluster0.juukqdd.mongodb.net/noteApp?retryWrites=true&w=majority'
-
+const url = process.env.MONGODB_URI
+console.log('connecting to', url)
 mongoose.set('strictQuery', false)
 mongoose.connect(url)
+        .then(result => {
+          console.log('connected to MongoDB')
+        })
+        .catch((error) => {
+          console.log('error connecting to MongoDB', error.message)
+        })
 
 const noteSchema = new mongoose.Schema({
   content: String,
@@ -78,7 +75,7 @@ const notes = noteList.map(note => {
     }
   })
 
-const PORT = process.env.port || 3001
+const PORT = process.env.PORT
 app.listen(PORT,() => {
 console.log(`Server running on port ${PORT}`)
 })
