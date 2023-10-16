@@ -4,7 +4,6 @@ const mongoose = require('mongoose')
 const app = express()
 
 app.use(cors())
-app.use(express.static('dist'))
 
 const url = process.env.MONGODB_URI
 console.log('connecting to', url)
@@ -75,7 +74,9 @@ const notes = noteList.map(note => {
     }
   })
 
-const PORT = process.env.PORT
+  app.use(express.static('dist'))
+
+const PORT = process.env.PORT || 3001
 app.listen(PORT,() => {
 console.log(`Server running on port ${PORT}`)
 })
