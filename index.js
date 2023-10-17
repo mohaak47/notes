@@ -64,12 +64,14 @@ const notes = noteList.map(note => {
   app.post('/api/notes', (request,response) => {
     const body = request.body
     if (body.contenet === undefined) {
-      response.status(400).json({error: 'content missing'})
+      return response.status(400).json({error: 'content missing'})
     }
     const note = new Note({
       content: body.content,
       important: body.important || false,
     })
+    console.log(content)
+    console.log(important)
     note.save().then(savedNote => {
       response.json(savedNote)
     })
