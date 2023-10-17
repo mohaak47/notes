@@ -5,6 +5,7 @@ const Note = require('./models/note')
 const app = express()
 
 app.use(cors())
+app.use(express.static('dist'))
 
 
 const noteList = [
@@ -60,7 +61,6 @@ const notes = noteList.map(note => {
     }
   })
 
-  app.use(express.static('dist'))
 
 const PORT = process.env.PORT || 3001
 app.listen(PORT,() => {
