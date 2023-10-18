@@ -16,18 +16,6 @@ const noteList = [
   {
     content: "Browser can execute only JavaScript",
     important: false
-  },
-  {
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true
-  },
-  {
-    content: "React ia a frontend framework",
-    important: true
-  },
-  {
-    content: "Express ia a backendend framework",
-    important: false
   }
 ]
 
