@@ -41,6 +41,7 @@ const notes = noteList.map(note => {
 
 
   app.post('/api/notes', (request,response) => {
+    console.log('create new note...')
     const body = request.body
     if (body.content === undefined) {
       return response.status(400).json({error: 'content missing'})
@@ -51,9 +52,8 @@ const notes = noteList.map(note => {
     })
     console.log(content)
     console.log(important)
-    note.save().then(savedNote => {
-      response.json(savedNote)
-    })
+    note.save().then(timeout( savedNote => {
+      response.json(savedNote)},5000))
   } )
   app.get('/api/notes/:id', (request, response) => {
     Note.findById(request.params.id).then(note => {
