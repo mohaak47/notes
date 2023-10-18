@@ -42,21 +42,21 @@ const notes = noteList.map(note => {
 
   app.post('/api/notes', (request,response) => {
     console.log('create new note...')
-    console.log(request.toString)
-    console.log(request.body.toString)
-    const body = request.body.toJSON
-    console.log(body.toString)
+    const body = request.body
+    /*
     if (body.content === undefined) {
       return response.status(400).json({error: 'content missing'})
     }
+    */
     const note = new Note({
       content: body.content,
       important: body.important || false,
     })
     console.log(content)
     console.log(important)
-    note.save().then(timeout( savedNote => {
-      response.json(savedNote)},5000))
+    note.save().then(savedNote => {
+      response.json(savedNote)
+    })
   } )
   app.get('/api/notes/:id', (request, response) => {
     Note.findById(request.params.id).then(note => {
