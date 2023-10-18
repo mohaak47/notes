@@ -51,7 +51,7 @@ const notes = noteList.map(note => {
 
   app.post('/api/notes', (request,response) => {
     const body = request.body
-    if (body.contenet === undefined) {
+    if (body.content === undefined) {
       return response.status(400).json({error: 'content missing'})
     }
     const note = new Note({
@@ -66,7 +66,7 @@ const notes = noteList.map(note => {
   } )
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT,() => {
 console.log(`Server running on port ${PORT}`)
 })
