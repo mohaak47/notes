@@ -44,7 +44,7 @@ const notes = noteList.map(note => {
     console.log('create new note...')
     console.log(request.toString)
     console.log(request.body.toString)
-    const body = request.body
+    const body = request.body.toJSON
     console.log(body.toString)
     if (body.content === undefined) {
       return response.status(400).json({error: 'content missing'})
