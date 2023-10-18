@@ -15,27 +15,30 @@ mongoose.connect(url)
 
 const noteSchema = new mongoose.Schema({
   content: String,
+  date: Date,
   important: Boolean,
 })
 
 const Note = mongoose.model('Note', noteSchema)
 
-const noteList = [
-  {
-    content: "React ia a frontend framework",
+const note = {
+    content: "Mongoose makes things easy",
+    date: new Date(),
     important: true
-  },
-  {
-    content: "Express ia a backendend framework",
-    important: false
   }
-]
-
+/*
 const notes = noteList.map(note => {
   const dbNote = new Note(note)
   dbNote.save().then(result => {
   console.log('note saved!')
   mongoose.connection.close()
   })
+  */
+  Note.find({}).then(result => {
+    result.forEach(note => {
+      console.log(note)
+    })
+ mongoose.connection.close()
+
 
 })
