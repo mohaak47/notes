@@ -42,7 +42,10 @@ const notes = noteList.map(note => {
 
   app.post('/api/notes', (request,response) => {
     console.log('create new note...')
+    console.log(request.toString)
+    console.log(request.body.toString)
     const body = request.body
+    console.log(body)
     if (body.content === undefined) {
       return response.status(400).json({error: 'content missing'})
     }
