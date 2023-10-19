@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
-
+mongoose.set('strictQuery', false)
 const url = process.env.MONGODB_URI
 console.log('connecting to', url)
-mongoose.set('strictQuery', false)
+
 mongoose.connect(url)
         .then(result => {
           console.log('connected to MongoDB')
@@ -17,7 +17,7 @@ const noteSchema = new mongoose.Schema({
 })
 
 noteSchema.set('toJSON',{
-  transform:(document, returnedObject) => {
+  transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
     delete returnedObject.__v

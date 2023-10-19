@@ -13,23 +13,16 @@ app.use(express.json())
 app.use(express.static('dist'))
 
 
-const noteList = [
-  {
-    content: "HTML is easy",
-    important: true
-  },
-  {
-    content: "Browser can execute only JavaScript",
-    important: false
-  }
+let notes = [
 ]
 
-const notes = noteList.map(note => {
+/* const notes = noteList.map(note => {
   const dbNote = new Note(note)
   dbNote.save().then(result => {
   console.log('note saved!')
   })
 })
+*/
 
 
 
@@ -41,7 +34,6 @@ const notes = noteList.map(note => {
 
 
   app.post('/api/notes', (request,response) => {
-    console.log('create new note...')
     const body = request.body
 
 
@@ -51,15 +43,15 @@ const notes = noteList.map(note => {
 
     const note = new Note({
       content: body.content,
-      date: new Date(),
       important: body.important || false,
     })
-    console.log(content)
-    console.log(important)
+
+
     note.save().then(savedNote => {
       response.json(savedNote)
     })
-  } )
+  })
+
   app.get('/api/notes/:id', (request, response) => {
     Note.findById(request.params.id).then(note => {
       response.json(note)
@@ -76,6 +68,6 @@ const notes = noteList.map(note => {
   app.use(unknownEndpoint)
 
 const PORT = process.env.PORT
-app.listen(PORT,() => {
+app.listen(PORT, () => {
 console.log(`Server running on port ${PORT}`)
 })
