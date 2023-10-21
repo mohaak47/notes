@@ -60,13 +60,13 @@ let notes = [
       } else {
         response.status(404).end()
       }
-    }
+    })
        .catch( error => {
          console.log(error)
          response.status(400).send({ error: 'malformatted id'})
        })
     })
-  })
+
 
   app.delete('/api/notes/:id', (request, response) => {
     Note.findByIdAndRemove(request.params.id)
