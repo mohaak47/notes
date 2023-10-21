@@ -53,17 +53,48 @@ let notes = [
   })
 
   app.get('/api/notes/:id', (request, response) => {
-    Note.findById(request.params.id).then(note => {
-      response.json(note)
+    Note.findById(request.params.id)
+        .then(note => {
+      if (note){
+        response.json(note)
+      } else {
+        response.status(404).end()
+      }
+       .catch( error => {
+         console.log(error)
+         response.status(400).send({ error: 'malformatted id'})
+       })
     })
   })
 
   app.delete('/api/notes/:id', (request, response) => {
-    const id = Number(request.params.id)
-    notes = notes.filter(note => note.id !== id)
-
-    response.status(204).end()
+    Note.findByIdAndRemove(request.params.id)
+        .then(result => {
+          response.status(204).end()
+        })
+        .catch(error => {
+          console.log(error)
+          response.status(400).send({ error: 'malformatted id'})
+        })
   })
+
+  app.put('/api/notes/:id', (request, response) => {
+    const body = request.body
+    const note = {
+      content: body.content,
+      important: body.important,
+    }
+    Note.findByIdAndUpdate(request.params.id, note, {new: true})
+        .then(updatedNote => {
+          response.json(updatedNote)
+        })
+        .catch(error => {
+          console.log(error)
+          response.status(400).send({ error: 'malformatted id'})
+        })
+  })
+
+
 
   app.use(unknownEndpoint)
 
