@@ -39,7 +39,7 @@ let notes = [
     console.log(body.important)
 
 
-    if (body.content === undefined) {
+    if (!body.content) {
       return response.status(400).json({error: 'content missing'})
     }
 
